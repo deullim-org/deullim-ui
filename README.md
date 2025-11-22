@@ -1,6 +1,40 @@
-# Welcome to your Expo app 👋
+# Deullim UI
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+## Project Structure
+
+```
+deullim-ui/
+├── app/                    # Expo Router screens
+│   ├── (tabs)/            # Tab navigation group
+│   ├── _layout.tsx        # Root layout
+│   └── modal.tsx          # Modal screen
+├── src/
+│   ├── components/        # Shared UI components
+│   │   ├── ui/           # Base UI elements
+│   │   └── shared/       # Shared components with business logic
+│   ├── features/         # Feature modules (add as needed)
+│   │   └── [feature]/
+│   │       ├── components/
+│   │       ├── hooks/
+│   │       ├── utils/
+│   │       ├── types.ts
+│   │       └── constants.ts
+│   ├── hooks/            # Shared custom hooks
+│   ├── utils/            # Shared utility functions
+│   ├── constants/        # Shared constants and theme
+│   ├── types/            # Shared TypeScript types
+│   └── services/         # API services (add as needed)
+├── assets/               # Images, fonts, etc.
+└── __tests__/            # Test files (add as needed)
+```
+
+### Architecture
+
+- **Shared**: Reusable across features (`src/components/`, `src/hooks/`, `src/types/`, `src/constants/`)
+- **Feature-specific**: Isolated by feature for high cohesion (`src/features/[feature]/`)
+- **Routing**: File-based routing in `app/` folder (Expo Router)
 
 ## Get started
 

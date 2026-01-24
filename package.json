@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
-    "lint:fix": "npm run lint && npm run format"
+    "lint:fix": "npm run format && npm run lint"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

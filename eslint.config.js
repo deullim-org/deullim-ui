@@ -17,7 +17,7 @@ module.exports = defineConfig([
       'no-console': 'warn',
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
 ]);

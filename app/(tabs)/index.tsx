@@ -75,6 +75,13 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <Link href="/wireframes" asChild>
+          <ThemedText type="link" style={styles.wireframeLink}>
+            📱 와이어프레임 보기
+          </ThemedText>
+        </Link>
+      </ThemedView>
     </ParallaxScrollView>
   );
 }
@@ -95,5 +102,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  wireframeLink: {
+    color: '#0a7ea4',
+    fontSize: 18,
+    padding: 16,
+    backgroundColor: '#f0f9fc',
+    borderRadius: 12,
+    textAlign: 'center',
+    overflow: 'hidden',
   },
 });

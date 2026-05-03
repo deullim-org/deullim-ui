@@ -40,10 +40,7 @@ export default function MapScreen() {
           <MapMarker key={memo.id} memo={memo} onPress={handleMarkerPress} />
         ))}
         {droppedPin && (
-          <DroppedPinMarker
-            latitude={droppedPin.latitude}
-            longitude={droppedPin.longitude}
-          />
+          <DroppedPinMarker latitude={droppedPin.latitude} longitude={droppedPin.longitude} />
         )}
       </NaverMap>
       <MapSearchBar />

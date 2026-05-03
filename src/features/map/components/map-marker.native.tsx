@@ -22,13 +22,7 @@ export function MapMarker({ memo, onPress }: Props) {
   );
 }
 
-export function DroppedPinMarker({
-  latitude,
-  longitude,
-}: {
-  latitude: number;
-  longitude: number;
-}) {
+export function DroppedPinMarker({ latitude, longitude }: { latitude: number; longitude: number }) {
   return (
     <NaverMapMarkerOverlay
       latitude={latitude}

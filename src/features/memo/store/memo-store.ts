@@ -21,16 +21,14 @@ export const useMemoStore = create<MemoState>((set) => ({
 
   setMemos: (memos) => set({ memos }),
 
-  addMemo: (memo) =>
-    set((state) => ({ memos: [memo, ...state.memos] })),
+  addMemo: (memo) => set((state) => ({ memos: [memo, ...state.memos] })),
 
   updateMemo: (id, updates) =>
     set((state) => ({
       memos: state.memos.map((m) => (m.id === id ? { ...m, ...updates } : m)),
     })),
 
-  removeMemo: (id) =>
-    set((state) => ({ memos: state.memos.filter((m) => m.id !== id) })),
+  removeMemo: (id) => set((state) => ({ memos: state.memos.filter((m) => m.id !== id) })),
 
   setLoading: (loading) => set({ loading }),
   setError: (error) => set({ error }),

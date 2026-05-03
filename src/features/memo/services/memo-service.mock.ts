@@ -5,7 +5,8 @@ const MOCK_MEMOS: Memo[] = [
   {
     id: 'sample-memo-1',
     title: '샘플 메모 1',
-    content: '와이어프레임용 더미 데이터입니다. 핀을 떨어뜨리거나 검색을 통해 새 메모를 만들어 보세요.',
+    content:
+      '와이어프레임용 더미 데이터입니다. 핀을 떨어뜨리거나 검색을 통해 새 메모를 만들어 보세요.',
     location: {
       id: 'sample-place-1',
       latitude: 37.5666805,

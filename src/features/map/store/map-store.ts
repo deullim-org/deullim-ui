@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-import {
-  DEFAULT_LATITUDE,
-  DEFAULT_LONGITUDE,
-  DEFAULT_ZOOM,
-} from '@/src/constants/map';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_ZOOM } from '@/src/constants/map';
 import type { Location } from '@/src/types/domain';
 
 interface CameraPosition {
@@ -43,8 +39,7 @@ export const useMapStore = create<MapState>((set) => ({
       camera: { latitude, longitude, zoom: zoom ?? state.camera.zoom },
     })),
 
-  selectLocation: (location) =>
-    set({ selectedLocation: location, isDetailSheetOpen: true }),
+  selectLocation: (location) => set({ selectedLocation: location, isDetailSheetOpen: true }),
 
   dropPin: (latitude, longitude) =>
     set({
@@ -61,8 +56,7 @@ export const useMapStore = create<MapState>((set) => ({
       isDetailSheetOpen: true,
     }),
 
-  clearSelection: () =>
-    set({ selectedLocation: null, droppedPin: null, isDetailSheetOpen: false }),
+  clearSelection: () => set({ selectedLocation: null, droppedPin: null, isDetailSheetOpen: false }),
 
   setDetailSheetOpen: (open) => set({ isDetailSheetOpen: open }),
 }));

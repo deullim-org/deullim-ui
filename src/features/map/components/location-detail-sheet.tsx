@@ -84,7 +84,8 @@ export function LocationDetailSheet() {
                 <ActivityIndicator size="small" style={styles.addressLoader} />
               ) : (
                 <Text style={styles.address} numberOfLines={2}>
-                  {address || `${selectedLocation.latitude.toFixed(4)}, ${selectedLocation.longitude.toFixed(4)}`}
+                  {address ||
+                    `${selectedLocation.latitude.toFixed(4)}, ${selectedLocation.longitude.toFixed(4)}`}
                 </Text>
               )}
             </View>

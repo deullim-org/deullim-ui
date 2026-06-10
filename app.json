@@ -9,7 +9,12 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We need your location to show nearby memos on the map.",
+        "NMFClientId": "YOUR_NAVER_MAP_CLIENT_ID"
+      },
+      "bundleIdentifier": "com.deullim.ui"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +24,9 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.deullim.ui",
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
     },
     "web": {
       "output": "static",
@@ -37,6 +44,22 @@
           "dark": {
             "backgroundColor": "#000000"
           }
+        }
+      ],
+      [
+        "@mj-studio/react-native-naver-map",
+        {
+          "client_id": "YOUR_NAVER_MAP_CLIENT_ID",
+          "android": {
+            "ACCESS_FINE_LOCATION": true,
+            "ACCESS_COARSE_LOCATION": true
+          }
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "We need your location to show nearby memos on the map."
         }
       ]
     ],

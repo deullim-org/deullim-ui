@@ -1,99 +1,57 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useCallback, useRef } from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Haptics from 'expo-haptics';
 
-import { HelloWave } from '@/src/components/shared/hello-wave';
-import ParallaxScrollView from '@/src/components/shared/parallax-scroll-view';
-import { ThemedText } from '@/src/components/shared/themed-text';
-import { ThemedView } from '@/src/components/shared/themed-view';
-import { Link } from 'expo-router';
+import { NaverMap, type NaverMapHandle } from '@/src/features/map/components/naver-map-view';
+import { CurrentLocationButton } from '@/src/features/map/components/current-location-button';
+import { MapSearchBar } from '@/src/features/map/components/map-search-bar';
+import { MapMarker, DroppedPinMarker } from '@/src/features/map/components/map-marker';
+import { LocationDetailSheet } from '@/src/features/map/components/location-detail-sheet';
+import { useMapStore } from '@/src/features/map/store/map-store';
+import { useMemos } from '@/src/features/memo/hooks/use-memos';
+import type { Memo } from '@/src/types/domain';
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
+export default function MapScreen() {
+  const mapRef = useRef<NaverMapHandle>(null);
+  const { dropPin, selectLocation, droppedPin } = useMapStore();
+  const { memos } = useMemos();
+
+  const handleTapMap = useCallback(
+    (latitude: number, longitude: number) => {
+      if (process.env.EXPO_OS === 'ios') {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+      dropPin(latitude, longitude);
+    },
+    [dropPin],
+  );
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const handleMarkerPress = useCallback(
+    (memo: Memo) => {
+      selectLocation(memo.location);
+    },
+    [selectLocation],
+  );
+
+  return (
+    <View style={styles.container}>
+      <NaverMap ref={mapRef} onTapMap={handleTapMap}>
+        {memos.map((memo) => (
+          <MapMarker key={memo.id} memo={memo} onPress={handleMarkerPress} />
+        ))}
+        {droppedPin && (
+          <DroppedPinMarker latitude={droppedPin.latitude} longitude={droppedPin.longitude} />
+        )}
+      </NaverMap>
+      <MapSearchBar />
+      <CurrentLocationButton />
+      <LocationDetailSheet />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  container: {
+    flex: 1,
   },
 });

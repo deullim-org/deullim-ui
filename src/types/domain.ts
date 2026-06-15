@@ -32,6 +32,7 @@ export interface Member {
 }
 
 export interface Setting {
-  mapZoomLevel: number;
   notificationsEnabled: boolean;
+  // Radius in meters for receiving nearby-memo push notifications.
+  notificationRadiusMeters: number;
 }
